@@ -1,0 +1,26 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: libro-service
+          uri: lb://LIBRO-SERVICE
+          predicates:
+            - Path=/api/libros/**
+        - id: usuario-service
+          uri: lb://USUARIO-SERVICE
+          predicates:
+            - Path=/api/usuarios/**
+        - id: prestamo-service
+          uri: lb://PRESTAMO-SERVICE
+          predicates:
+            - Path=/api/prestamos/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
